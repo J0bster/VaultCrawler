@@ -1,0 +1,18 @@
+[
+    {
+        "id": "Sword-Common-1",
+        "name": "Rusty Sword",
+        "type": "Weapon",
+        "damage": 10,
+        "rarity": "Common",
+        "maxQuantity": 1
+    },
+    {
+        "id": "Potion-Common-1",
+        "name": "Potion",
+        "type": "Consumable",
+        "effect": "Restore 25 health",
+        "rarity": "uncommon",
+        "maxQuantity": 5
+    }
+]
