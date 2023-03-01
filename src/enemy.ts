@@ -1,4 +1,4 @@
-export type PlayerData = {
+export type EnemyData = {
     hp: number;
     mp: number;
     atk: number;
@@ -6,9 +6,9 @@ export type PlayerData = {
     spd: number;
 }
 
-export type Player = {
+export type Enemy = {
     id: number;
     name: string;
-    data: PlayerData;
+    data: EnemyData;
     skills: string[];
 }

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node -r esbuild-register src/main.ts",
+    "dev": "node -r esbuild-register src/combat.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },

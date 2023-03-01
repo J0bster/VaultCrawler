@@ -1,14 +1,14 @@
-export type Item = {
+export type ItemTemplate = {
     name: string;
     description: string;
     type: string;
-    effect?: string;
-    damage?: number;
     rarity: string;
-    quantity?: number;
-    maxQuantity: number;
 }
 
-export function createItem(item: Item): Item {
-    return item;
+export type IventoryItem = {
+    name: string;
+    description: string;
+    type: string;
+    rarity: string;
+    quantity: number;
 }

@@ -5,7 +5,8 @@
         "type": "Weapon",
         "damage": 10,
         "rarity": "Common",
-        "maxQuantity": 1
+        "maxQuantity": 1,
+        "description": "A rusty sword that has seen better days."
     },
     {
         "id": "Potion-Common-1",
@@ -13,6 +14,7 @@
         "type": "Consumable",
         "effect": "Restore 25 health",
         "rarity": "uncommon",
+        "description": "A potion that restores 25 health.",
         "maxQuantity": 5
     }
 ]
