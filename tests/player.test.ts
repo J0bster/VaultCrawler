@@ -1,50 +1,30 @@
-import {expect, test, describe} from 'vitest';
-import { createPlayer } from '../src/player';
+import {expect, test, describe, assertType} from 'vitest';
+import {world} from '../src/enitity';
 
 
-describe('Player', () => {
-    test('createPlayer and match player', () => {
-        const player = createPlayer({
-            hp: 100,
-            mp: 100,
-            atk: 100,
-            def: 100,
-            spd: 100,
-            name: 'test',
-            skills: [],
-            items: [],
-        });
-        expect(player).toEqual({
-            hp: 100,
-            mp: 100,
-            atk: 100,
-            def: 100,
-            spd: 100,
-            name: 'test',
-            skills: [],
-            items: [],
-        });
-    });
-});
-// test('createPlayer', () => {
-//     const player = createPlayer({
-//         hp: 100,
-//         mp: 100,
-//         atk: 100,
-//         def: 100,
-//         spd: 100,
-//         name: 'test',
-//         skills: [],
-//         items: [],
-//     });
-//     expect(player).toEqual({
-//         hp: 100,
-//         mp: 100,
-//         atk: 100,
-//         def: 100,
-//         spd: 100,
-//         name: 'test',
-//         skills: [],
-//         items: [],
-//     });
-// });
+
+describe ('Entity', () => {
+    test('createEntity', () => {
+        const entity = 1;
+        const component = {
+            id: 1
+        }
+        type earth = world;
+        let planet = new Map();
+        planet = earth.entities;
+        world.set(entity, component);
+        expect(world).toEqual(new Map([[1, {id: 1}]]));
+    })
+    test('createEntity with health', () => {
+        const entity = 1;
+        const component = {
+            id: 1
+        }
+        const health = 100;
+        const world = new Map();
+        world.set(entity, component);
+        world.set(entity, health);
+        // expect(world.get(entity)).toEqual(100);
+        expect(world.entities.get('HEALTH')).toEqual(100);
+    })
+})

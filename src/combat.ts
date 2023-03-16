@@ -1,97 +1,40 @@
-import { Player } from './player';
-import { Enemy } from './enemy';
+import { world } from './enitity';
 
+type CombatState = {
+    priorityByEntity: Record<number, number>;
+};
 
-class Combat {
-    player: Player;
-    enemy: Enemy;
-    order: any[] = [];
+type Combatants = world['entities'];
 
-    constructor(player: Player, enemy: Enemy) {
-        this.player = player;
-        this.enemy = enemy;
-        this.order = [];
-    }
-
-    public start() {
-        console.log('Combat started! You are fighting a ' + this.enemy.name + '!');
-        this.Turn_order();
-        console.log(this.order);
-
-        while(true) {
-            let attacker: Player | Enemy = this.order.shift();
-            this.order.push(attacker);
-            let target = this.order.filter((x) => x != attacker)[0];
-            // console.log(target);
-            this.Atack(attacker, target);
-            if (this.player.data.hp <= 0) {
-                console.log('You died!');
-                break;
-            }
-            else if (this.enemy.data.hp <= 0) {
-                console.log('You won!');
-                break;
-            }
+export function getNextEntity(combatants: Combatants, combatState: CombatState) {
+    const { priorityByEntity } = combatState;
+    const entities = Array.from(combatants.keys());
+    const entity = entities.reduce((acc, cur) => {
+        if (priorityByEntity[cur] > priorityByEntity[acc]) {
+            return cur;
         }
+        return acc;
+    }, entities[0]);
+    return entity;
+}
 
-    }
+export function CombatIntro(combatants: Combatants, combatState: CombatState) {
+    const { priorityByEntity } = combatState;
+    combatants.forEach((value, key) => {
+        // priorityByEntity[key] = combatants[key].get('STATS')?.dexterity;
+        // Q: How do I get the dexterity value from the STATS component?
+        //A: You need to use the get method on the Map object. The get method returns the value associated with the key.
+        priorityByEntity[key] = combatants.get(key)?.get('STATS')?.dexterity;
 
-    private Turn_order() {
-        let mult = 1.5;
-        if (this.player.data.spd > this.enemy.data.spd) {
-            this.order.push(this.player);
-            while (this.enemy.data.spd * mult < this.player.data.spd) {
-                this.order.push(this.player);
-                mult += 1.5;
-            }
-            this.order.push(this.enemy);
-        }
-        else {
-            this.order.push(this.enemy);
-            while (this.player.data.spd * mult < this.enemy.data.spd) {
-                this.order.push(this.enemy);
-                mult += 1.5;
-            }
-            this.order.push(this.player);
-        }
-    }
+    });
+}
 
-    private Atack(attacker: Player | Enemy, target: Player | Enemy) {
-        let damage = attacker.data.atk - target.data.def;
-        if (damage < 0) {
-            damage = 0;
-        }
-        target.data.hp -= damage;
-        console.log(attacker.name + ' attacked ' + target.name + ' for ' + damage + ' damage!');
+export function doTurn(entity: number, combatants: Combatants, combatState: CombatState) {
+    const { priorityByEntity } = combatState;
+    priorityByEntity[entity] -= 1;
+    if (priorityByEntity[entity] <= 0) {
+        priorityByEntity[entity] = combatants[entity].get('STATS')?.dexterity;
     }
 
 }
 
-let player: Player = {
-    id: 1,
-    name: 'test',
-    data: {
-        hp: 100,
-        mp: 150,
-        atk: 100,
-        def: 100,
-        spd: 101,
-    },
-    skills: [],
-};
-
-let enemy: Enemy = {
-    id: 1,
-    name: 'test-Enemy',
-    data: {
-        hp: 100,
-        mp: 100,
-        atk: 99,
-        def: 99,
-        spd: 100,
-    },
-    skills: [],
-};  
-
-let combat = new Combat(player, enemy);
-combat.start();
