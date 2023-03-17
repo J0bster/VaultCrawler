@@ -1,55 +1,29 @@
-// import {CombatIntro, getNextEntity, doTurn} from '../src/combat';
-// import {createWorld, createComponent, createEntity, addComponent} from '../src/enitity';
-// import {expect, test, describe, assertType} from 'vitest';
+import {CombatIntro, getNextEntity, doTurn} from '../src/combat';
+import {createWorld, createEntity, addComponent} from '../src/enitity';
+import {expect, test, describe, assertType} from 'vitest';
 
-// describe ('Combat', () => {
-//     test('CombatIntro', () => {
-//         const world = createWorld();
-//         const entity = 1;
-//         const component = createComponent('STATS', {
-//             dexterity: 10
-//         });
-//         createEntity(world, entity, component);
-//         const combat = {
-//             combatants: world.entities,
-//             combatState: {
-//                 priorityByEntity: {}
-//             }
-//         };
-//         CombatIntro(combat);
-//         expect(combat.combatState.priorityByEntity[entity]).toEqual(10);
-//     })
-//     test('getNextEntity', () => {
-//         const world = createWorld();
-//         const entity = 1;
-//         const component = createComponent('STATS', {
-//             dexterity: 10
-//         });
-//         createEntity(world, entity, component);
-//         const combat = {
-//             combatants: world.entities,
-//             combatState: {
-//                 priorityByEntity: {}
-//             }
-//         };
-//         CombatIntro(combat);
-//         expect(getNextEntity(combat)).toEqual(1);
-//     })
-//     test('doTurn', () => {
-//         const world = createWorld();
-//         const entity = 1;
-//         const component = createComponent('STATS', {
-//             dexterity: 10
-//         });
-//         createEntity(world, entity, component);
-//         const combat = {
-//             combatants: world.entities,
-//             combatState: {
-//                 priorityByEntity: {}
-//             }
-//         };
-//         CombatIntro(combat);
-//         doTurn(entity, combat);
-//         expect(combat.combatState.priorityByEntity[entity]).toEqual(9);
-//     })
-// })
+describe ('Combat', () => {
+    test('CombatIntro', () => {
+        const world = createWorld();
+        const entity = 1;
+        const component = {
+            dexterity: 10,
+            health: 10
+        };
+        createEntity(world, entity, component, 'STATS');
+        const entity2 = 2;
+        const component2 = {
+            dexterity: 5,
+            health: 10
+        };
+        createEntity(world, entity2, component2, 'STATS');
+        const combat = {
+            combatants: world.entities,
+            combatState: {
+                priorityByEntity: {}
+            }
+        };
+        CombatIntro(combat);
+        expect(combat.combatState.priorityByEntity).toEqual({1: 10, 2: 5});
+    })
+})

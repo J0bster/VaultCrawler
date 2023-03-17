@@ -2,9 +2,7 @@ type Entity = number;
 
 export type componentType = "NAME" | "STATS";
 
-type component = {
-    data: any;
-}
+type component = any;
 
 export type world = {
     entities: Map<Entity, Map<componentType, component>>;
@@ -18,10 +16,7 @@ export function createWorld() {
 
 export function createEntity(world: world, entity: Entity, component: component, componentType: componentType) {
     const components = new Map();
-    // components.set(component.data, component);
-    // components.set(component, component.data);
     components.set(componentType, component);
-    //Q: Why does this not work?
     world.entities.set(entity, components);
 }
 
