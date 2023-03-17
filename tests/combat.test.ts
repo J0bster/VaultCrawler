@@ -74,3 +74,33 @@ describe ('Combat', () => {
         expect(combat.combatState.priorityByEntity).toEqual({1: 9, 2: 5});
     })
 })
+
+describe ('Combat Cycle', () => {
+    test('combat cycle', () => {
+        const world = createWorld();
+        const entity = 1;
+        const component = {
+            dexterity: 6,
+            health: 10
+        };
+        createEntity(world, entity, component, 'STATS');
+        const entity2 = 2;
+        const component2 = {
+            dexterity: 5,
+            health: 10
+        };
+        createEntity(world, entity2, component2, 'STATS');
+        const combat = {
+            combatants: world.entities,
+            combatState: {
+                priorityByEntity: {}
+            }
+        };
+        CombatIntro(combat);
+        expect(getNextEntity(combat)).toBe(1);
+        doTurn(1, combat);
+        expect(getNextEntity(combat)).toBe(1);
+        doTurn(1, combat);
+        expect(getNextEntity(combat)).toBe(2);
+    })
+})

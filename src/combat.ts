@@ -1,5 +1,3 @@
-import { createWorld, createEntity, addComponent } from './enitity';
-
 type CombatState = {
     priorityByEntity: Record<number, number>;
 };
@@ -8,13 +6,6 @@ type Combat = {
     combatants: Map<number, Map<string, any>>;
     combatState: CombatState;
 };
-
-// export function CombatIntro(combat: Combat) {
-//     const priorityByEntity = combat.combatState;
-//     combat.combatants.forEach((value, key) => {
-//         priorityByEntity[key] = combat.combatants.get(key)?.get('STATS')?.dexterity;
-//     });
-// }
 
 export function CombatIntro(combat: Combat) {
     const { priorityByEntity } = combat.combatState;
