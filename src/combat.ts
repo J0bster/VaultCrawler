@@ -37,3 +37,33 @@ export function doTurn(entity: number, combat: Combat) {
     }
 }
 
+export function attack(attacker: number, defender: number, combat: Combat) {
+    const attackerStats = combat.combatants.get(attacker)?.get('STATS');
+    const defenderStats = combat.combatants.get(defender)?.get('STATS');
+    defenderStats.health -= attackerStats.strength;
+}
+
+
+export function selectTarget(combat: Combat, entity: number) {
+    const entities = Array.from(combat.combatants.keys());
+    const target = entities.reduce((acc, cur) => {
+        if (cur !== entity) {
+            return cur;
+        }
+        return acc;
+    }, entities[0]);
+    return target;
+}
+
+export function removeDead(combat: Combat) {
+    const entities = Array.from(combat.combatants.keys());
+    entities.forEach((entity) => {
+        if (combat.combatants.get(entity)?.get('STATS')?.health <= 0) {
+            combat.combatants.delete(entity);
+        }
+    });
+}
+
+export function isCombatOver(combat: Combat) {
+    return combat.combatants.size === 1;
+}
